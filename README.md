@@ -47,7 +47,7 @@ Ensure you have the following installed:
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/ahsanf/digiwuh.git
+   git clone https://github.com/muammaralf/bedigiwuh.git
    cd digiwuh
    ```
 
@@ -120,7 +120,3 @@ Contributions are welcome! Please submit a pull request or open an issue to disc
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Contact
-
-For any inquiries, please contact [social.ahsanf@gmail.com].
