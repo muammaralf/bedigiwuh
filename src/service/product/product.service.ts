@@ -4,14 +4,20 @@ import { IProductUseCase } from "./product.use_case";
 import { getSupabaseClient } from "../../util/supabase/supabase";
 import { Stats } from "../../common/rest.entity";
 import { Filter } from "../../entity/filter.entity";
+import { History, STATUS_SUCCESS } from "../../entity/history.entity";
+import { IHistoryUseCase } from "../history/history.use_case";
+import { HistoryService } from "../history/history.service";
 
 export class ProductService implements IProductUseCase {
   private supabase: SupabaseClient
   private tableName: string = 'products'
+  private historyService: IHistoryUseCase
   
   constructor(){
     this.supabase = getSupabaseClient()
+    this.historyService = new HistoryService()  
   }
+
 
   async create(data: Product): Promise<void> {
     const { data: eventData, error } = await this.supabase.from(this.tableName).insert([data])
@@ -83,6 +89,26 @@ export class ProductService implements IProductUseCase {
     }
 
     return Promise.resolve(data)
+  }
+
+  async buy(id: number, userId: number): Promise<void> {
+    const product = await this.getById(id)
+    if (!product || !product.id) {
+      return Promise.reject('Product not found')
+    }
+
+    const history: History = {
+      product_id: product.id,
+      user_id: userId,
+      status: STATUS_SUCCESS,
+      transaction_datetime: new Date(),
+      description: `Pembelian ${product.name}`,
+      bill_number: `${new Date().getTime()}`,
+      created_at: new Date(),
+      updated_at: new Date()
+    }
+
+    await this.historyService.addHistory(history)
   }
   
 }

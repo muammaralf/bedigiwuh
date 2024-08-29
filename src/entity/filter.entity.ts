@@ -3,5 +3,7 @@ export type Filter = {
   perPage?: number
   currentPage?: number
   sortBy?: string
+  userId?: number
+  transactionDay?: string
   orderBy?: 'asc' | 'desc'
 }

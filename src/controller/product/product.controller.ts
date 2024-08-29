@@ -74,5 +74,14 @@ export class ProductController implements BaseController {
         res.status(400).json(errorToRestResponse(error))
       }
     })
+
+    this.app.post(`/${this.prefix}/:id/buy`, async (req: Request, res: Response) => {
+      try {
+        await this.service.buy(parseInt(req.params.id), parseInt(req.body.userId))
+        res.status(200).json(dataToRestResponse(null))
+      } catch (error) {
+        res.status(400).json(errorToRestResponse(error))
+      }
+    })
   }
 }

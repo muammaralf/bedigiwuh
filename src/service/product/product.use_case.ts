@@ -8,4 +8,5 @@ export interface IProductUseCase {
   delete(id: number): Promise<void>
   getAll(filter?: Filter): Promise<{ data: Product[], stats: Stats }>
   getById(id: number): Promise<Product>
+  buy(id: number, userId: number): Promise<void>
 }

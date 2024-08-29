@@ -8,9 +8,10 @@ import { ProductController } from './src/controller/product/product.controller';
 import { ArticleController } from './src/controller/article/article.controller';
 import { VideoController } from './src/controller/video/video.controller';
 import { configDotenv } from 'dotenv';
+import { HistoryController } from './src/controller/history/history.controller';
 
 const app: Express = express()
-const port = 8080
+const port = 3400
 app.use(bodyparser.json())
 app.use(cors({credentials: true, origin: true}))
 
@@ -22,12 +23,14 @@ const eventController = new EventController(app)
 const productController = new ProductController(app)
 const articleController = new ArticleController(app)
 const videoController = new VideoController(app)
+const historyController = new HistoryController(app)
 
 userController.init()
 eventController.init()
 productController.init()
 articleController.init()
 videoController.init()
+historyController.init()
 
 app.get('/', (_: Request, res: Response) => {
   res.send(`
